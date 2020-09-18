@@ -2,9 +2,12 @@ package com.goonline.inventory.management.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.goonline.inventory.management.bean.InventoryBean;
 import com.goonline.inventory.management.service.InventoryService;
 
 @RestController
@@ -24,9 +27,9 @@ public class InventoryController {
 		return "Inventories Ok";
 	}
 	
-	@GetMapping("/createInventories")
-	public String createInventories() {
-		inventoryService.createInventory();
-		return "Inventories Ok";
+	@PostMapping("/inventory")
+	public String addInventory(@RequestBody InventoryBean inventory) {
+		inventoryService.addInventory(inventory);
+		return "Inventory Added";
 	}
 }

@@ -6,6 +6,6 @@ public interface InventoryService {
 	
 	InventoryBean getInventoryList();
 
-	void createInventory();
+	void addInventory(InventoryBean inventory);
 
 }

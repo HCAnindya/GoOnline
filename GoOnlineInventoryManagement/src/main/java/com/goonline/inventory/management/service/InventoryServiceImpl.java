@@ -1,5 +1,6 @@
 package com.goonline.inventory.management.service;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,12 +21,10 @@ public class InventoryServiceImpl implements InventoryService{
 	}
 
 	@Override
-	public void createInventory() {
-		InventoryEntity entity = new InventoryEntity();
-		entity.setInventoryName("Sketch Book");
-		entity.setInventoryPrice(100);
-		repository.save(entity);
-		
+	public void addInventory(InventoryBean inventory) {
+		ModelMapper mapper = new ModelMapper();
+		InventoryEntity inventoryEntity = 	mapper.map(inventory, InventoryEntity.class);	
+		repository.save(inventoryEntity);
 	}
 
 }

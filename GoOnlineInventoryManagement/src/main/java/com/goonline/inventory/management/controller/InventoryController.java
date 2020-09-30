@@ -1,6 +1,12 @@
 package com.goonline.inventory.management.controller;
 
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,16 +16,20 @@ import org.springframework.web.bind.annotation.RestController;
 import com.goonline.inventory.management.bean.InventoryBean;
 import com.goonline.inventory.management.service.InventoryService;
 
+
 @RestController
-@RequestMapping("/inventory")
+@RequestMapping("/inventorymanagement")
+@CrossOrigin(origins = "http://localhost:4200")
 public class InventoryController {
 
 	@Autowired
 	private InventoryService inventoryService;
 	
 	@GetMapping("/status")
-	public String status() {
-		return "Inventory Ok";
+	@Produces(value = MediaType.APPLICATION_JSON)
+	public ResponseEntity<String> status() {
+		System.out.println("Call came");
+		return new ResponseEntity<String>("Tested Ok1", HttpStatus.OK);
 	}
 	
 	@GetMapping("/inventories")
@@ -28,8 +38,10 @@ public class InventoryController {
 	}
 	
 	@PostMapping("/inventory")
-	public String addInventory(@RequestBody InventoryBean inventory) {
+	public ResponseEntity<String> addInventory(@RequestBody InventoryBean inventory) {
+		System.out.println(inventory.getInventoryName() + ":" + inventory.getInventoryPrice());
+		
 		inventoryService.addInventory(inventory);
-		return "Inventory Added";
+		return new ResponseEntity<String>(HttpStatus.ACCEPTED);
 	}
 }

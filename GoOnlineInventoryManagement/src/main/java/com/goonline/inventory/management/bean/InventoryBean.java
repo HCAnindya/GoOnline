@@ -5,6 +5,7 @@ public class InventoryBean {
 	private String inventoryId;
 	private String inventoryName;
 	private String inventoryPrice;
+	
 	public String getInventoryId() {
 		return inventoryId;
 	}

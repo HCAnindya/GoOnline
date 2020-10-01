@@ -1,5 +1,7 @@
 package com.goonline.inventory.management.controller;
 
+import java.util.List;
+
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -33,8 +35,9 @@ public class InventoryController {
 	}
 	
 	@GetMapping("/inventories")
-	public String getInventories() {
-		return "Inventories Ok";
+	public ResponseEntity<List<InventoryBean>> getInventories() {		
+		return new ResponseEntity<List<InventoryBean>>(inventoryService.getInventoryList(),
+				HttpStatus.OK);
 	}
 	
 	@PostMapping("/inventory")

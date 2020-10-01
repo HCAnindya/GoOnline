@@ -1,5 +1,8 @@
 package com.goonline.inventory.management.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,15 +18,19 @@ public class InventoryServiceImpl implements InventoryService{
 	private InventoryRepository repository;
 	
 	@Override
-	public InventoryBean getInventoryList() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<InventoryBean> getInventoryList() {
+		ModelMapper mapper = new ModelMapper();
+		List<InventoryBean> inventoryList = new ArrayList<>();
+		for(InventoryEntity entity : repository.findAll()) {
+			inventoryList.add(mapper.map(entity, InventoryBean.class));	
+		}
+		return inventoryList;
 	}
 
 	@Override
 	public void addInventory(InventoryBean inventory) {
 		ModelMapper mapper = new ModelMapper();
-		InventoryEntity inventoryEntity = 	mapper.map(inventory, InventoryEntity.class);	
+		InventoryEntity inventoryEntity = mapper.map(inventory, InventoryEntity.class);	
 		repository.save(inventoryEntity);
 	}
 

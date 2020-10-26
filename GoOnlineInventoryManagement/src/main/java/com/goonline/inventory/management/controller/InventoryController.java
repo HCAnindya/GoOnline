@@ -21,12 +21,12 @@ import com.goonline.inventory.management.service.InventoryService;
 
 @RestController
 @RequestMapping("/inventorymanagement")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "${cors.url}", allowedHeaders = "${cors.header}")
 public class InventoryController {
 
 	@Autowired
 	private InventoryService inventoryService;
-	
+		
 	@GetMapping("/status")
 	@Produces(value = MediaType.APPLICATION_JSON)
 	public ResponseEntity<String> status() {
